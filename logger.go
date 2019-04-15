@@ -18,15 +18,28 @@ const (
 
 // HlLogger is a wrapper around the log/logger
 type HlLogger struct {
+	sysd   bool
 	llevel LogLevel
 	logger *log.Logger
 }
 
+// Config allows to configure an hllogger
+type Config struct {
+	LogLevel              LogLevel
+	LoggerFlags           int
+	SystemdJournaldCompat bool
+}
+
 // New is the constructor for a HlLogger object
-func New(output io.Writer, prefix string, logLevel LogLevel, loggerFlags int) *HlLogger {
-	// Basic init
+func New(output io.Writer, c *Config) *HlLogger {
+	if c == nil {
+		c = &Config{
+			LogLevel: Info,
+		}
+	}
 	return &HlLogger{
-		llevel: logLevel,
-		logger: log.New(output, prefix, loggerFlags),
+		sysd:   c.SystemdJournaldCompat,
+		llevel: c.LogLevel,
+		logger: log.New(output, "", c.LoggerFlags),
 	}
 }
