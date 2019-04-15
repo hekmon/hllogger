@@ -97,7 +97,7 @@ func (l *HlLogger) Error(message string) {
 
 // Errorf is a wrapper to Error() adding formating support
 func (l *HlLogger) Errorf(format string, a ...interface{}) {
-	if l.llevel <= Error {
+	if l.llevel >= Error {
 		l.Error(fmt.Sprintf(format, a...))
 	}
 }
