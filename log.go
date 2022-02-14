@@ -9,12 +9,12 @@ import (
 */
 
 // Output is a wrapper to the log.Output() base fx
-func (l *HlLogger) Output(message string) {
+func (l *Logger) Output(message string) {
 	l.logger.Output(2, message)
 }
 
 // Outputf is a wrapper to the the Output() fx but with formating support
-func (l *HlLogger) Outputf(format string, a ...interface{}) {
+func (l *Logger) Outputf(format string, a ...interface{}) {
 	l.Output(fmt.Sprintf(format, a...))
 }
 
@@ -23,21 +23,21 @@ func (l *HlLogger) Outputf(format string, a ...interface{}) {
 */
 
 // Debug is a wrapper to Output()
-func (l *HlLogger) Debug(message string) {
+func (l *Logger) Debug(message string) {
 	if l.llevel >= Debug {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Debug), Debug, message)
 	}
 }
 
 // Debugf is a wrapper to Debug() adding formating support
-func (l *HlLogger) Debugf(format string, a ...interface{}) {
+func (l *Logger) Debugf(format string, a ...interface{}) {
 	if l.llevel >= Debug {
 		l.Debug(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsDebugShown returns true if the Debug level is in use
-func (l *HlLogger) IsDebugShown() (shown bool) {
+func (l *Logger) IsDebugShown() (shown bool) {
 	return l.llevel >= Debug
 }
 
@@ -46,21 +46,21 @@ func (l *HlLogger) IsDebugShown() (shown bool) {
 */
 
 // Info is a wrapper to Output()
-func (l *HlLogger) Info(message string) {
+func (l *Logger) Info(message string) {
 	if l.llevel >= Info {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Info), Info, message)
 	}
 }
 
 // Infof is a wrapper to Info() adding formating support
-func (l *HlLogger) Infof(format string, a ...interface{}) {
+func (l *Logger) Infof(format string, a ...interface{}) {
 	if l.llevel >= Info {
 		l.Info(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsInfoShown returns true if the Info level is in use
-func (l *HlLogger) IsInfoShown() (shown bool) {
+func (l *Logger) IsInfoShown() (shown bool) {
 	return l.llevel >= Info
 }
 
@@ -69,21 +69,21 @@ func (l *HlLogger) IsInfoShown() (shown bool) {
 */
 
 // Notice is a wrapper to Output()
-func (l *HlLogger) Notice(message string) {
+func (l *Logger) Notice(message string) {
 	if l.llevel >= Notice {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Notice), Notice, message)
 	}
 }
 
 // Noticef is a wrapper to Notice() adding formating support
-func (l *HlLogger) Noticef(format string, a ...interface{}) {
+func (l *Logger) Noticef(format string, a ...interface{}) {
 	if l.llevel >= Notice {
 		l.Notice(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsNoticeShown returns true if the Notice level is in use
-func (l *HlLogger) IsNoticeShown() (shown bool) {
+func (l *Logger) IsNoticeShown() (shown bool) {
 	return l.llevel >= Notice
 }
 
@@ -92,21 +92,21 @@ func (l *HlLogger) IsNoticeShown() (shown bool) {
 */
 
 // Warning is a wrapper to Output()
-func (l *HlLogger) Warning(message string) {
+func (l *Logger) Warning(message string) {
 	if l.llevel >= Warning {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Warning), Warning, message)
 	}
 }
 
 // Warningf is a wrapper to Warning() adding formating support
-func (l *HlLogger) Warningf(format string, a ...interface{}) {
+func (l *Logger) Warningf(format string, a ...interface{}) {
 	if l.llevel >= Warning {
 		l.Warning(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsWarningShown returns true if the Warning level is in use
-func (l *HlLogger) IsWarningShown() (shown bool) {
+func (l *Logger) IsWarningShown() (shown bool) {
 	return l.llevel >= Warning
 }
 
@@ -115,21 +115,21 @@ func (l *HlLogger) IsWarningShown() (shown bool) {
 */
 
 // Error is a wrapper to Output()
-func (l *HlLogger) Error(message string) {
+func (l *Logger) Error(message string) {
 	if l.llevel >= Error {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Error), Error, message)
 	}
 }
 
 // Errorf is a wrapper to Error() adding formating support
-func (l *HlLogger) Errorf(format string, a ...interface{}) {
+func (l *Logger) Errorf(format string, a ...interface{}) {
 	if l.llevel >= Error {
 		l.Error(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsErrorShown returns true if the Error level is in use
-func (l *HlLogger) IsErrorShown() (shown bool) {
+func (l *Logger) IsErrorShown() (shown bool) {
 	return l.llevel >= Error
 }
 
@@ -138,21 +138,21 @@ func (l *HlLogger) IsErrorShown() (shown bool) {
 */
 
 // Critical is a wrapper to Output()
-func (l *HlLogger) Critical(message string) {
+func (l *Logger) Critical(message string) {
 	if l.llevel >= Critical {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Critical), Critical, message)
 	}
 }
 
 // Criticalf is a wrapper to Critical() adding formating support
-func (l *HlLogger) Criticalf(format string, a ...interface{}) {
+func (l *Logger) Criticalf(format string, a ...interface{}) {
 	if l.llevel >= Critical {
 		l.Critical(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsCriticalShown returns true if the Critical level is in use
-func (l *HlLogger) IsCriticalShown() (shown bool) {
+func (l *Logger) IsCriticalShown() (shown bool) {
 	return l.llevel >= Critical
 }
 
@@ -161,21 +161,21 @@ func (l *HlLogger) IsCriticalShown() (shown bool) {
 */
 
 // Alert is a wrapper to Output()
-func (l *HlLogger) Alert(message string) {
+func (l *Logger) Alert(message string) {
 	if l.llevel >= Alert {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Alert), Alert, message)
 	}
 }
 
 // Alertf is a wrapper to Alert() adding formating support
-func (l *HlLogger) Alertf(format string, a ...interface{}) {
+func (l *Logger) Alertf(format string, a ...interface{}) {
 	if l.llevel >= Alert {
 		l.Alert(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsAlertShown returns true if the Alert level is in use
-func (l *HlLogger) IsAlertShown() (shown bool) {
+func (l *Logger) IsAlertShown() (shown bool) {
 	return l.llevel >= Alert
 }
 
@@ -184,20 +184,20 @@ func (l *HlLogger) IsAlertShown() (shown bool) {
 */
 
 // Emergency is a wrapper to Output()
-func (l *HlLogger) Emergency(message string) {
+func (l *Logger) Emergency(message string) {
 	if l.llevel >= Emergency {
 		l.Outputf("%s%9s: %s", l.getJournaldPrefix(Emergency), Emergency, message)
 	}
 }
 
 // Emergencyf is a wrapper to Emergency() adding formating support
-func (l *HlLogger) Emergencyf(format string, a ...interface{}) {
+func (l *Logger) Emergencyf(format string, a ...interface{}) {
 	if l.llevel >= Emergency {
 		l.Emergency(fmt.Sprintf(format, a...))
 	}
 }
 
 // IsEmergencyShown returns true if the Emergency level is in use
-func (l *HlLogger) IsEmergencyShown() (shown bool) {
+func (l *Logger) IsEmergencyShown() (shown bool) {
 	return l.llevel >= Emergency
 }

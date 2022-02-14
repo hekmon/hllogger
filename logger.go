@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-// New is the constructor for a HlLogger object
-func New(output io.Writer, level LogLevel) *HlLogger {
+// New is the constructor for a Logger object
+func New(output io.Writer, level LogLevel) *Logger {
 	var (
 		journaldPrefix bool
 		flags          int
@@ -19,16 +19,21 @@ func New(output io.Writer, level LogLevel) *HlLogger {
 		flags = log.Ltime | log.Ldate
 	}
 	// Return the initialized logger
-	return &HlLogger{
+	return &Logger{
 		journald: journaldPrefix,
 		llevel:   level,
 		logger:   log.New(output, "", flags),
 	}
 }
 
-// HlLogger is a wrapper around the log/logger
-type HlLogger struct {
+// Logger is a wrapper around the log/logger
+type Logger struct {
 	journald bool
 	llevel   LogLevel
 	logger   *log.Logger
+}
+
+// GetStdLogger returns the lower level std logger used by this instance of Logger
+func (l *Logger) GetStdLogger() *log.Logger {
+	return l.logger
 }

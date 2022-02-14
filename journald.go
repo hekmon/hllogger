@@ -43,7 +43,7 @@ func (ll LogLevel) SystemdPrefix() string {
 	}
 }
 
-func (hll *HlLogger) getJournaldPrefix(ll LogLevel) string {
+func (hll *Logger) getJournaldPrefix(ll LogLevel) string {
 	if hll.journald {
 		return ll.SystemdPrefix()
 	}
