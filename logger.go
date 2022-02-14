@@ -12,10 +12,11 @@ func New(output io.Writer, level LogLevel) *Logger {
 		journaldPrefix bool
 		flags          int
 	)
-	// Is systemd detected ?
+	// Enable journald compat mode ?
 	_, journaldPrefix = os.LookupEnv("INVOCATION_ID")
-	if !journaldPrefix {
-		// systemd not detected, add date and time as prefix for logging
+	if !(journaldPrefix && (output == os.Stdout || output == os.Stderr)) {
+		// Switch to non systemd mode as conditions are not met
+		journaldPrefix = false
 		flags = log.Ltime | log.Ldate
 	}
 	// Return the initialized logger

@@ -1,5 +1,10 @@
 package hllogger
 
+/*
+	Journald prefixes are syslog values (see syslog.h)
+	https://0pointer.de/blog/projects/journal-submit.html
+*/
+
 const (
 	// SystemdEmergPrefix is the string to prefix in Emergency for systemd-journald
 	SystemdEmergPrefix = "<0>"
