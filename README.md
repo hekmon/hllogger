@@ -50,7 +50,7 @@ If you init the logger with the `hllogger.Info` level, all calls to `logger.Debu
 
 ### Regular output
 
-Raw ouput on your terminal (if not started by systemd or if started by systemd but output is not `os.Stdout` or `os.Stderr`).
+Regular (default) ouput on your terminal or on a file.
 
 ```raw
 2022/02/14 20:37:31     DEBUG: test
@@ -65,7 +65,7 @@ Raw ouput on your terminal (if not started by systemd or if started by systemd b
 
 ### systemd-journald integration
 
-If started by systemd and output is `os.Stdout` or `os.Stderr`. By integrating with systemd-journald, the lib will indicate the log level of each log to journald. It will allows log manipulation directly with journald (printing only info level while debug have been printed) but also log level highlighting (colors).
+Automatically enabled if started by systemd and output is `os.Stdout` or `os.Stderr`. By integrating with systemd-journald, the lib will indicate the log level of each log to journald. It will allows log manipulation directly with journald (printing only info level while debug have been printed) but also log level highlighting (colors).
 
 #### log level highlighting
 
@@ -81,4 +81,19 @@ Broadcast message from systemd-journald@testserver1 (Mon 2022-02-14 20:47:52 UTC
 hlloggertest[1031126]: EMERGENCY: test
 
 hekmon@testserver1:~$
+```
+
+### AWS Lambda integration
+
+If a AWS lambda execution environment is detected and therefor logs being handled by AWS Cloudwatch logs, the logger won't use any time based flags as CloudWatch Logs will be taking care of it. Only log level and actual log message will be output:
+
+```raw
+    DEBUG: test
+     INFO: test
+   NOTICE: test
+  WARNING: test
+    ERROR: test
+ CRITICAL: test
+    ALERT: test
+EMERGENCY: test
 ```
