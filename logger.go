@@ -9,19 +9,25 @@ import (
 // New is the constructor for a Logger object
 func New(output io.Writer, level LogLevel) *Logger {
 	var (
-		journaldPrefix bool
-		flags          int
+		systemdInvocation bool
+		awsLogGroup       bool
+		flags             int
 	)
-	// Enable journald compat mode ?
-	_, journaldPrefix = os.LookupEnv("INVOCATION_ID")
-	if !(journaldPrefix && (output == os.Stdout || output == os.Stderr)) {
-		// Switch to non systemd mode as conditions are not met
-		journaldPrefix = false
+	// Detect special compatibility modes
+	_, systemdInvocation = os.LookupEnv("INVOCATION_ID")
+	_, awsLogGroup = os.LookupEnv("AWS_LAMBDA_LOG_GROUP_NAME")
+	// Prepare configuration accordingly
+	if systemdInvocation && output != os.Stdout && output != os.Stderr {
+		// launched by systemd but logger is not being redirected to std output (may be to a file ?)
+		// disabling journald compat mode
+		systemdInvocation = false
+	}
+	if !systemdInvocation && !awsLogGroup {
 		flags = log.Ltime | log.Ldate
 	}
 	// Return the initialized logger
 	return &Logger{
-		journald: journaldPrefix,
+		journald: systemdInvocation,
 		llevel:   level,
 		logger:   log.New(output, "", flags),
 	}
