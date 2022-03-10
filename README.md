@@ -15,6 +15,7 @@ HlLogger is an opinionated logger on top of the Golang standard library logger. 
   * Alert
   * Emergency
 * automatic systemd-journald integration if systemd is detected as executor and output is `os.Stdout` or `os.Stderr`
+* automatic AWS CloudWatch Logs integration if AWS Lambda execution environment is detected
 
 ## Installation
 
