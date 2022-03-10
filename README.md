@@ -86,7 +86,7 @@ hekmon@testserver1:~$
 
 ### AWS Lambda integration
 
-If a AWS lambda execution environment is detected and therefor logs being handled by AWS Cloudwatch logs, the logger won't use any time based flags as CloudWatch Logs will be taking care of it. Only log level and actual log message will be output:
+If a AWS lambda execution environment is detected and therefor logs are being handled by AWS Cloudwatch logs, the logger won't use any time based flags as CloudWatch Logs will be taking care of it. Only log level and actual log message will be output:
 
 ```raw
     DEBUG: test
