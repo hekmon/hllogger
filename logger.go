@@ -44,3 +44,19 @@ type Logger struct {
 func (l *Logger) GetStdLogger() *log.Logger {
 	return l.logger
 }
+
+// SetOutput sets the output destination for this logger instance.
+func (l *Logger) SetOutput(w io.Writer) {
+	l.logger.SetOutput(w)
+}
+
+// SetLogLevel sets the log level for this logger instance.
+// This function is not thread safe, do not set log level if you are printing logs already.
+func (l *Logger) SetLogLevel(ll LogLevel) {
+	l.llevel = ll
+}
+
+// SetFlags sets the logger flags for this logger instance.
+func (l *Logger) SetFlags(flags int) {
+	l.logger.SetFlags(flags)
+}
