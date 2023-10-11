@@ -7,40 +7,40 @@ type LogLevel uint8
 
 const (
 	// Emergency level
-	Emergency LogLevel = iota
+	LevelEmergency LogLevel = iota
 	// Alert level
-	Alert
+	LevelAlert
 	// Critical level
-	Critical
+	LevelCritical
 	// Error level
-	Error
+	LevelError
 	// Warning level
-	Warning
+	LevelWarning
 	// Notice level
-	Notice
+	LevelNotice
 	// Info level
-	Info
+	LevelInfo
 	// Debug level
-	Debug
+	LevelDebug
 )
 
 func (ll LogLevel) String() string {
 	switch ll {
-	case Debug:
+	case LevelDebug:
 		return "DEBUG"
-	case Info:
+	case LevelInfo:
 		return "INFO"
-	case Notice:
+	case LevelNotice:
 		return "NOTICE"
-	case Warning:
+	case LevelWarning:
 		return "WARNING"
-	case Error:
+	case LevelError:
 		return "ERROR"
-	case Critical:
+	case LevelCritical:
 		return "CRITICAL"
-	case Alert:
+	case LevelAlert:
 		return "ALERT"
-	case Emergency:
+	case LevelEmergency:
 		return "EMERGENCY"
 	}
 	return "<unknown>"
