@@ -27,21 +27,21 @@ const (
 // SystemdPrefix returns the appropriate prefix for systemd-journald
 func (ll LogLevel) SystemdPrefix() string {
 	switch ll {
-	case Debug:
+	case LevelDebug:
 		return SystemdDebugPrefix
-	case Info:
+	case LevelInfo:
 		return SystemdInfoPrefix
-	case Notice:
+	case LevelNotice:
 		return SystemdNoticePrefix
-	case Warning:
+	case LevelWarning:
 		return SystemdWarningPrefix
-	case Error:
+	case LevelError:
 		return SystemdErrPrefix
-	case Critical:
+	case LevelCritical:
 		return SystemdCritPrefix
-	case Alert:
+	case LevelAlert:
 		return SystemdAlertPrefix
-	case Emergency:
+	case LevelEmergency:
 		return SystemdEmergPrefix
 	default:
 		return ""
