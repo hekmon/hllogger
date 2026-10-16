@@ -1,6 +1,6 @@
 # High Level Logger
 
-[![GoDoc](https://pkg.go.dev/badge/github.com/hekmon/hllogger/v2?status.svg)](https://pkg.go.dev/github.com/hekmon/hllogger/v2)
+[![GoDoc](https://pkg.go.dev/badge/github.com/hekmon/hllogger/v3?status.svg)](https://pkg.go.dev/github.com/hekmon/hllogger/v3)
 
 
 HlLogger is an opinionated logger on top of the Golang standard library logger. It adds:
@@ -20,7 +20,7 @@ HlLogger is an opinionated logger on top of the Golang standard library logger. 
 ## Installation
 
 ```bash
-go get github.com/hekmon/hllogger/v2
+go get github.com/hekmon/hllogger/v3
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ package main
 import (
 	"os"
 
-	"github.com/hekmon/hllogger/v2"
+	"github.com/hekmon/hllogger/v3"
 )
 
 func main() {
@@ -97,4 +97,16 @@ If a AWS lambda execution environment is detected and therefor logs are being ha
  CRITICAL: test
     ALERT: test
 EMERGENCY: test
+```
+
+### AWS Lambda (and other platforms that timestamp logs for you)
+
+When running under AWS Lambda, hllogger detects the platform through the `AWS_LAMBDA_FUNCTION_NAME` environment variable and disables its own date/time flags, since CloudWatch Logs already timestamps every log entry.
+
+If you aggregate the logs of several functions into the same destination and want to identify the source on each line, add the function name yourself as a `log` prefix:
+
+```go
+if name, ok := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME"); ok {
+    hllogger.Default().GetStdLogger().SetPrefix(fmt.Sprintf("[%s] ", name))
+}
 ```
