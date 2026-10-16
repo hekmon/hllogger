@@ -1,7 +1,6 @@
 package hllogger
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -11,7 +10,7 @@ import (
 func New(output io.Writer, level LogLevel) *Logger {
 	// Detect special compatibility modes
 	_, systemdInvocation := os.LookupEnv("INVOCATION_ID")
-	lambdaFunctionName, awsLambdaFunction := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME")
+	_, awsLambdaFunction := os.LookupEnv("AWS_LAMBDA_FUNCTION_NAME")
 	// Prepare configuration accordingly
 	if systemdInvocation && output != os.Stdout && output != os.Stderr {
 		// launched by systemd but logger is not being redirected to std output (may be to a file ?)
@@ -22,15 +21,11 @@ func New(output io.Writer, level LogLevel) *Logger {
 	if !systemdInvocation && !awsLambdaFunction {
 		flags = log.Ltime | log.Ldate
 	}
-	var prefix string
-	if awsLambdaFunction {
-		prefix = fmt.Sprintf("[%s] ", lambdaFunctionName)
-	}
 	// Return the initialized logger
 	return &Logger{
 		journald: systemdInvocation,
 		llevel:   level,
-		logger:   log.New(output, prefix, flags),
+		logger:   log.New(output, "", flags),
 	}
 }
 
