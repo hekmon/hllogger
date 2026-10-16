@@ -112,7 +112,7 @@ func Critical(message string) {
 
 // Criticalf logs a formatted message at the Critical level with the default standard logger.
 func Criticalf(format string, v ...interface{}) {
-	std.Errorf(format, v...)
+	std.Criticalf(format, v...)
 }
 
 // IsCriticalShown returns true if the Critical level is in use on the default standard logger.
